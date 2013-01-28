@@ -1,10 +1,13 @@
-﻿using StatsTracker.DataModel;
+﻿using Newtonsoft.Json;
+using StatsTracker.Data;
+using StatsTracker.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 
 namespace StatsTracker
 {
@@ -27,6 +30,13 @@ namespace StatsTracker
             {
                 source.Add(sortedItem);
             }
+        }
+
+        public static async Task<Game> ToGameAsync(this StorageFile storageFile)
+        {
+            var json = await FileIO.ReadTextAsync(storageFile);
+            var game = JsonConvert.DeserializeObject<Game>(json);
+            return game;
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,6 +27,7 @@ namespace StatsTracker.DataModel
             this.SaveSelectedPlayers = new RelayCommand(() => OnSaveSelectedPlayers());
             this.SaveGame = new RelayCommand(() => OnSaveGame());
             this.DeleteGame = new RelayCommand(() => OnDeleteGame());
+            this.EmailGame = new RelayCommand(() => OnEmailGame());
             this.SortPlayersByName = new RelayCommand(() => OnSortPlayersByName());
             this.SortPlayersByNumber = new RelayCommand(() => OnSortPlayersByNumber());
         }
@@ -34,6 +36,7 @@ namespace StatsTracker.DataModel
         public RelayCommand SaveSelectedPlayers { get; private set; }
         public RelayCommand SaveGame { get; private set; }
         public RelayCommand DeleteGame { get; private set; }
+        public RelayCommand EmailGame { get; private set; }
         public RelayCommand SortPlayersByName { get; private set; }
         public RelayCommand SortPlayersByNumber { get; private set; }
         
@@ -91,6 +94,27 @@ namespace StatsTracker.DataModel
             dialog.Commands.Add(new UICommand("No"));
 
             await dialog.ShowAsync();
+        }
+
+        private void OnEmailGame()
+        {
+            // get the DataTransferManager object associated with current window
+            var dataTransferManager = DataTransferManager.GetForCurrentView();
+
+            // register event to handle the share operation when it starts
+            dataTransferManager.DataRequested -= OnDataRequested;
+            dataTransferManager.DataRequested += OnDataRequested;
+
+            // show the charm bar with Share option opened
+            DataTransferManager.ShowShareUI();
+        }
+
+        private async void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var dataPackage = args.Request.Data;
+            dataPackage.Properties.Title = this.Game.Opponent + " - " + this.Game.Date.ToString("d");
+            var gameFile = await FileManager.GetGameFileAsync(this.Game);
+            dataPackage.SetStorageItems(new[] { gameFile });
         }
 
         private void OnSortPlayersByName()

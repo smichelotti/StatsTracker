@@ -28,11 +28,18 @@ namespace StatsTracker.Common
             await gameFile.DeleteAsync();
         }
 
+        public async static Task<StorageFile> GetGameFileAsync(Game game)
+        {
+            var fileName = GetGameFileName(game);
+            var gameFile = await localFolder.GetFileAsync(fileName);
+            return gameFile;
+        }
+
         #region Private Methods
 
         private static string GetGameFileName(Game game)
         {
-            return string.Format("game-{0}-{1}", game.Opponent, game.Date.ToString("yyyy.MM.dd"));
+            return string.Format("game-{0}-{1}.stgame", game.Opponent, game.Date.ToString("yyyy.MM.dd"));
         }
 
         #endregion

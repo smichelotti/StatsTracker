@@ -457,6 +457,13 @@
         <Setter Property="AutomationProperties.Name" Value="Delete"/>
         <Setter Property="Content" Value="&#xE106;"/>
     </Style>
+
+    <Style x:Key="ImportAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="ImportAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Import"/>
+        <Setter Property="Content" Value="&#xE150;"/>
+    </Style>
+    
     <!--
     <Style x:Key="DiscardAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="DiscardAppBarButton"/>
@@ -480,6 +487,9 @@
     </Style>
     <Style x:Key="AddGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AddAppBarButtonStyle}">
         <Setter Property="AutomationProperties.Name" Value="Add Game"/>
+    </Style>
+    <Style x:Key="ImportGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource ImportAppBarButtonStyle}">
+        <Setter Property="AutomationProperties.Name" Value="Import Game"/>
     </Style>
 
     <Style x:Key="UpButtonStyle" TargetType="ButtonBase">
@@ -842,11 +852,9 @@
         <Setter Property="AutomationProperties.Name" Value="Orientation"/>
         <Setter Property="Content" Value="&#xE14F;"/>
     </Style>
-    <Style x:Key="ImportAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="ImportAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Import"/>
-        <Setter Property="Content" Value="&#xE150;"/>
-    </Style>
+    -->
+   
+    <!--
     <Style x:Key="ImportAllAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="ImportAllAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Import All"/>
@@ -894,6 +902,12 @@
     <Style x:Key="DeleteGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource DeleteAppBarButtonStyle}">
         <Setter Property="AutomationProperties.Name" Value="Delete Game"/>
     </Style>
+    <Style x:Key="EmailGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="EmailAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Email"/>
+        <Setter Property="Content" Value="&#xE119;"/>
+    </Style>
+    
     <!--
     <Style x:Key="CaptionAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="CaptionAppBarButton"/>

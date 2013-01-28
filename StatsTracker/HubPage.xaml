@@ -59,8 +59,8 @@
         <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <!--<Button Style="{StaticResource RemoveGameAppBarButtonStyle}" />-->
                     <Button Style="{StaticResource AddGameAppBarButtonStyle}" Command="{Binding HubViewModel.NewGameViewModel.OpenAddGame}"/>
+                    <Button Style="{StaticResource ImportGameAppBarButtonStyle}" Command="{Binding HubViewModel.ImportGame}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource RefreshPlayersAppBarButtonStyle}" Command="{Binding HubViewModel.RefreshPlayers}"/>

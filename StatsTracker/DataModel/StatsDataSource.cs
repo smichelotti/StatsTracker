@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -29,6 +30,7 @@ namespace StatsTracker.Data
             this.allGroups.Add(playersGroup);
 
             this.RefreshPlayers = new RelayCommand(() => OnRefreshPlayers());
+            this.ImportGame = new RelayCommand(() => OnImportGameAsync());
             this.NewGameViewModel = new NewGameViewModel();
         }
 
@@ -39,22 +41,34 @@ namespace StatsTracker.Data
         public NewGameViewModel NewGameViewModel { get; set; }
 
         public RelayCommand RefreshPlayers { get; private set; }
+        public RelayCommand ImportGame { get; private set; }
 
         private void OnRefreshPlayers()
         {
             RefreshPlayersAsync();
         }
 
+        private async void OnImportGameAsync()
+        {
+            var openPicker = new FileOpenPicker();
+            openPicker.SuggestedStartLocation = PickerLocationId.Downloads;
+            openPicker.FileTypeFilter.Add(".stgame");
+            StorageFile file = await openPicker.PickSingleFileAsync();
+            var game = await file.ToGameAsync();
+            FileManager.SaveGameFileAsync(game);
+            App.ViewModel.Games.Items.Add(game);
+        }
+
         #region Private Methods
 
         private async void RefreshPlayersAsync()
         {
-            //progressBar.Visibility = Visibility.Visible;
             this.IsProgressVisible = true;
             HttpClient httpClient = new HttpClient();
             var url = string.Format("https://api.teamsnap.com/v2/teams/{0}/as_roster/{1}/rosters", 41132, 1319156);
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
             //TODO: consider HttpMessageHandler for custom request header
+            // X-Teamsnap-Token here:
             
 
             var response = await httpClient.SendAsync(request);
@@ -63,13 +77,10 @@ namespace StatsTracker.Data
             var rosters = rosterRoot.Where(x => x.roster.non_player == false).Select(x => x.roster).ToList();
             var data = new ObservableCollection<Roster>(rosters.ToList());
 
-
-
             var localFolder = ApplicationData.Current.LocalFolder;
 
             var rosterFile = await localFolder.CreateFileAsync("rosterData", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(rosterFile, json);
-
 
             // first need to locally store all player images
             try
@@ -97,16 +108,12 @@ namespace StatsTracker.Data
             }
 
             var playersList = rosters.Select(x => new Player(x.first + " " + x.last, x.number, x.GetImageFileName())).OrderBy(x => x.Number);
-            //App.ViewModel.AllGroups[1].Items.Clear();
             this.Players.Items.Clear();
             foreach (var item in playersList)
             {
-                //App.ViewModel.AllGroups[1].Items.Add(item);
                 this.Players.Items.Add(item);
             }
 
-
-            //progressBar.Visibility = Visibility.Collapsed;
             this.IsProgressVisible = false;
         }
 
@@ -138,11 +145,8 @@ namespace StatsTracker.Data
         {
             var localFolder = ApplicationData.Current.LocalFolder;
 
-            
-
-            // Load Players
+            // First: Load Players
             var localFiles = await localFolder.GetFilesAsync();
-
             if (localFiles.Any(x => x.Name == "rosterData"))
             {
                 var rosterFile = await localFolder.GetFileAsync("rosterData");
@@ -159,22 +163,13 @@ namespace StatsTracker.Data
 
             var playerStats = this.Players.Items.Cast<Player>().Select(p => new PlayerStat(p));
 
-            // First games (still hard-coded)
+            // Second: Load Games
             var gameFiles = localFiles.Where(x => x.Name.StartsWith("game-"));
             foreach (var file in gameFiles)
             {
-                var json = await FileIO.ReadTextAsync(file);
-                var game = JsonConvert.DeserializeObject<Game>(json);
+                var game = await file.ToGameAsync();
                 this.Games.Items.Add(game);
             }
-
-            //var game1 = new Game("Baltimore Alliance", new DateTime(2012, 1, 1), playerStats);
-            //game1.Score = "59-27";
-            //this.Games.Items.Add(game1);
-            //this.Games.Items.Add(new Game("Baltimore Stars", new DateTime(2013, 1, 2), playerStats));
-            //this.Games.Items.Add(new Game("Pikesville", new DateTime(2013, 1, 3), playerStats));
-            //this.Games.Items.Add(new Game("Ravens A", new DateTime(2013, 1, 4), playerStats));
-            //this.Games.Items.Add(new Game("6th Man Warriors", new DateTime(2013, 1, 5), playerStats));
         }
     }
 }
