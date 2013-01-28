@@ -1,0 +1,22 @@
+﻿<UserControl
+    x:Class="StatsTracker.Common.Counter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="90"
+    d:DesignWidth="90"
+    x:Name="counterCtl">
+    
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Name="tbValue"  Style="{StaticResource TitleTextStyle}" FontSize="30" VerticalAlignment="Center" Width="34" Text="{Binding Count,ElementName=counterCtl, Mode=TwoWay}"></TextBlock>
+            <StackPanel Orientation="Vertical">
+                <Button Name="btnUp"  Style="{StaticResource UpButtonStyle}" Click="btnUp_Click"/>
+                <Button Name="btnDown"  Style="{StaticResource DownButtonStyle}" Click="btnDown_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
