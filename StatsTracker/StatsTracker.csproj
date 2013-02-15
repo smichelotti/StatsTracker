@@ -115,12 +115,15 @@
     <Compile Include="DataModel\EntityBase.cs" />
     <Compile Include="DataModel\Game.cs" />
     <Compile Include="DataModel\GameDetailViewModel.cs" />
-    <Compile Include="DataModel\NewGameViewModel.cs" />
+    <Compile Include="DataModel\EditGameViewModel.cs" />
     <Compile Include="DataModel\Player.cs" />
     <Compile Include="DataModel\PlayerStat.cs" />
     <Compile Include="DataModel\RosterData.cs" />
     <Compile Include="DataModel\StatsDataSource.cs" />
     <Compile Include="DataModel\StatsDesignTimeDataSource.cs" />
+    <Compile Include="EditGamePage.xaml.cs">
+      <DependentUpon>EditGamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="GameDetailPage.xaml.cs">
       <DependentUpon>GameDetailPage.xaml</DependentUpon>
@@ -176,6 +179,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditGamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GameDetailPage.xaml">
       <SubType>Designer</SubType>

@@ -23,13 +23,13 @@
             Source="{Binding Items}"
             d:Source="{Binding AllGroups[0].Items, Source={d:DesignInstance Type=data:StatsDesignTimeDataSource, IsDesignTimeCreatable=True}}"/>
 
-        <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Page.Resources>
 
     <common:LayoutAwarePage.BottomAppBar>
         <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Style="{StaticResource EditGameAppBarButtonStyle}" Command="{Binding EditGame}"/>
                     <Button Style="{StaticResource DeleteGameAppBarButtonStyle}" Command="{Binding DeleteGame}"/>
                     <Button Style="{StaticResource SortByNameAppBarButtonStyle}" Command="{Binding SortPlayersByName}"/>
                     <Button Style="{StaticResource SortByNumberAppBarButtonStyle}" Command="{Binding SortPlayersByNumber}"/>

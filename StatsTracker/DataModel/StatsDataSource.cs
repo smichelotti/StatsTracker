@@ -31,14 +31,14 @@ namespace StatsTracker.Data
 
             this.RefreshPlayers = new RelayCommand(() => OnRefreshPlayers());
             this.ImportGame = new RelayCommand(() => OnImportGameAsync());
-            this.NewGameViewModel = new NewGameViewModel();
+            this.EditGameViewModel = new EditGameViewModel();
         }
 
         private static StatsDataSource dataSource = new StatsDataSource();
 
         public bool IsProgressVisible { get; set; }
         public GameDetailViewModel SelectedGame { get; set; }
-        public NewGameViewModel NewGameViewModel { get; set; }
+        public EditGameViewModel EditGameViewModel { get; set; }
 
         public RelayCommand RefreshPlayers { get; private set; }
         public RelayCommand ImportGame { get; private set; }

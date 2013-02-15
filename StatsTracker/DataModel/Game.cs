@@ -33,7 +33,31 @@ namespace StatsTracker.Data
 
         public string Opponent { get; set; }
         public DateTime Date { get; set; }
-        public string Score { get; set; }
+        
+        public string Score 
+        {
+            get
+            {
+                if (this.SharksScore == 0 || this.OpponentScore == 0)
+                {
+                    return string.Empty;
+                }
+
+                string winIndicator = string.Empty;
+                if (this.SharksScore > this.OpponentScore)
+                {
+                    winIndicator = "W";
+                }
+                else if (this.SharksScore < this.OpponentScore)
+                {
+                    winIndicator = "L";
+                }
+                return string.Format("{0} {1} - {2}", winIndicator, this.SharksScore, this.OpponentScore);
+            }
+        }
+
+        public int SharksScore { get; set; }
+        public int OpponentScore { get; set; }
 
         public ObservableCollection<PlayerStat> PlayerStats { get; set; }
     }

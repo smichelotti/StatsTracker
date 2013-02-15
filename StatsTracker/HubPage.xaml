@@ -32,7 +32,10 @@
                 </Border>
                 <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
                     <TextBlock Text="{Binding Opponent}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
-                    <TextBlock Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:M/dd/yyyy}'}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                    <Grid>
+                        <TextBlock HorizontalAlignment="Left" Text="{Binding Date, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0:M/dd/yyyy}'}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                        <TextBlock HorizontalAlignment="Right" Text="{Binding Score}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                    </Grid>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -59,7 +62,7 @@
         <AppBar x:Name="bottomAppBar" Padding="10,0,10,0">
             <Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource AddGameAppBarButtonStyle}" Command="{Binding HubViewModel.NewGameViewModel.OpenAddGame}"/>
+                    <Button Style="{StaticResource AddGameAppBarButtonStyle}" Command="{Binding HubViewModel.EditGameViewModel.OpenAddGame}"/>
                     <Button Style="{StaticResource ImportGameAppBarButtonStyle}" Command="{Binding HubViewModel.ImportGame}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -224,18 +227,16 @@
         </Grid>
 
 
-        <Controls:CustomDialog x:Name="AddGameDialog" HorizontalAlignment="Left" Title="Add Game" IsOpen="{Binding HubViewModel.NewGameViewModel.AddGameDialogIsVisible,Mode=TwoWay}" BackButtonVisibility="Visible" BackButtonClicked="AddGameDialog_BackButtonClicked" Background="White" VerticalAlignment="Top">
+        <Controls:CustomDialog x:Name="AddGameDialog" HorizontalAlignment="Left" Title="Add Game" IsOpen="{Binding HubViewModel.EditGameViewModel.AddGameDialogIsVisible,Mode=TwoWay}" BackButtonVisibility="Visible" BackButtonClicked="AddGameDialog_BackButtonClicked" Background="White" VerticalAlignment="Top">
             
             <StackPanel>
                 <TextBlock Style="{StaticResource DialogTextStyle}" Text="Opponent"/>
-                <!--<Controls:WatermarkTextBox x:Name="txtOpponent" Watermark="Opponent" FontSize="20" Text="{Binding HubViewModel.NewGameViewModel.Opponent, Mode=TwoWay}" />-->
-                <TextBox x:Name="txtOpponent" FontSize="20" Text="{Binding HubViewModel.NewGameViewModel.Game.Opponent, Mode=TwoWay}" />
+                <TextBox x:Name="txtOpponent" FontSize="20" Text="{Binding HubViewModel.EditGameViewModel.Game.Opponent, Mode=TwoWay}" />
 
                 <TextBlock Style="{StaticResource DialogTextStyle}">Date</TextBlock>
-                <Input:RadDatePicker x:Name="gameDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Value="{Binding HubViewModel.NewGameViewModel.Game.Date, Mode=TwoWay}"/>
+                <Input:RadDatePicker x:Name="gameDatePicker" HorizontalAlignment="Left" VerticalAlignment="Top" Value="{Binding HubViewModel.EditGameViewModel.Game.Date, Mode=TwoWay}"/>
 
-                <!--<Button FontSize="20" Margin="0,10,0,0" Click="OnSaveNewGame">Save</Button>-->
-                <Button FontSize="20" Margin="0,10,0,0" Command="{Binding HubViewModel.NewGameViewModel.SaveNewGame}">Save</Button>
+                <Button FontSize="20" Margin="0,10,0,0" Command="{Binding HubViewModel.EditGameViewModel.SaveNewGame}">Save</Button>
             </StackPanel>
         </Controls:CustomDialog>
 

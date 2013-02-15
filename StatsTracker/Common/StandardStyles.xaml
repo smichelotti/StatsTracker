@@ -87,6 +87,17 @@
         <Setter Property="Margin" Value="117,0,0,25"/>
     </Style>
 
+    <Style x:Key="LabelTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Margin" Value="0,12,0,6"/>
+    </Style>
+
+    <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+
     <Style x:Key="DialogTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="Margin" Value="0,0,0,8"/>
@@ -444,7 +455,7 @@
         <Setter Property="AutomationProperties.Name" Value="Edit"/>
         <Setter Property="Content" Value="&#xE104;"/>
     </Style>
-    
+
     <Style x:Key="SaveAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="SaveAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Save"/>
@@ -901,6 +912,9 @@
     </Style>
     <Style x:Key="DeleteGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource DeleteAppBarButtonStyle}">
         <Setter Property="AutomationProperties.Name" Value="Delete Game"/>
+    </Style>
+    <Style x:Key="EditGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource EditAppBarButtonStyle}">
+        <Setter Property="AutomationProperties.Name" Value="Edit Game"/>
     </Style>
     <Style x:Key="EmailGameAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="EmailAppBarButton"/>

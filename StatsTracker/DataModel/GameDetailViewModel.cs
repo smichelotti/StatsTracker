@@ -26,6 +26,7 @@ namespace StatsTracker.DataModel
             this.SelectPlayers = new RelayCommand(() => OnSelectPlayers());
             this.SaveSelectedPlayers = new RelayCommand(() => OnSaveSelectedPlayers());
             this.SaveGame = new RelayCommand(() => OnSaveGame());
+            this.EditGame = new RelayCommand(() => OnEditGame());
             this.DeleteGame = new RelayCommand(() => OnDeleteGame());
             this.EmailGame = new RelayCommand(() => OnEmailGame());
             this.SortPlayersByName = new RelayCommand(() => OnSortPlayersByName());
@@ -35,6 +36,7 @@ namespace StatsTracker.DataModel
         public RelayCommand SelectPlayers { get; private set; }
         public RelayCommand SaveSelectedPlayers { get; private set; }
         public RelayCommand SaveGame { get; private set; }
+        public RelayCommand EditGame { get; private set; }
         public RelayCommand DeleteGame { get; private set; }
         public RelayCommand EmailGame { get; private set; }
         public RelayCommand SortPlayersByName { get; private set; }
@@ -94,6 +96,11 @@ namespace StatsTracker.DataModel
             dialog.Commands.Add(new UICommand("No"));
 
             await dialog.ShowAsync();
+        }
+
+        private void OnEditGame()
+        {
+            App.ViewModel.EditGameViewModel.OpenEditGame(this.Game);
         }
 
         private void OnEmailGame()

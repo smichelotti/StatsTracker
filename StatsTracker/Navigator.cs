@@ -19,5 +19,14 @@ namespace StatsTracker
             var pageType = typeof(T);
             ((Frame)Window.Current.Content).Navigate(pageType);
         }
+
+        public static void NavigateBack()
+        {
+            var frame = (Frame)Window.Current.Content;
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+            }
+        }
     }
 }

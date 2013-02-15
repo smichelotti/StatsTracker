@@ -20,7 +20,8 @@ namespace StatsTracker.Data
         {
             var gamesGroup = new AppDataGroup("Games");
             var game1 = new Game("Baltimore Alliance", new DateTime(2012, 1, 1));
-            game1.Score = "59-27";
+            game1.SharksScore = 59;
+            game1.OpponentScore = 27;
             gamesGroup.Items.Add(game1);
             gamesGroup.Items.Add(new Game("Baltimore Stars", new DateTime(2013, 1, 2)));
             gamesGroup.Items.Add(new Game("Pikesville", new DateTime(2013, 1, 3)));
@@ -40,7 +41,9 @@ namespace StatsTracker.Data
     {
         public GameDesignTimeViewModel() : base ("Team Takeover", DateTime.Today)
         {
-            this.Score = "W 34-29";
+            //this.Score = "W 34-29";
+            this.SharksScore = 34;
+            this.OpponentScore = 29;
         }
     }
 }
